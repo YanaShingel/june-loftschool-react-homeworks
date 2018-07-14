@@ -2,6 +2,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { searchRequest } from 'actions/search';
 import ShowPreview from '../ShowPreview';
+import {
+  getSearchLoading,
+  getSearchError,
+  getSearchSerials
+} from 'selectors/searchSelectors';
 import './Search.css';
 import { withRouter } from 'react-router-dom';
 
@@ -49,9 +54,9 @@ class Search extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.search.isLoading,
-  serials: state.search.serials,
-  error: state.search.error
+  isLoading: getSearchLoading(state),
+  serials: getSearchSerials(state),
+  error: getSearchError(state)
 });
 
 const mapDispatchToProps = {

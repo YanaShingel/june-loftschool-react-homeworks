@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { showRequest } from 'actions/show';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getShowLoading, getShowSelect } from 'selectors/showSelectors';
 import './ShowPage.css';
 
 class ShowPage extends PureComponent {
@@ -15,7 +16,6 @@ class ShowPage extends PureComponent {
     if (!select.id) {
       return null;
     }
-
     const actors = select._embedded.cast.map(({ person }) => ({
       name: person.name,
       image: person.image ? person.image.medium : null
@@ -55,8 +55,8 @@ class ShowPage extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.show.isLoading,
-  select: state.show.select
+  isLoading: getShowLoading(state),
+  select: getShowSelect(state)
 });
 
 const mapDispatchToProps = {
