@@ -1,1 +1,1 @@
-export const getIsAutorized = state => state.auth.isAutorized;
+export const getIsAuthorized = state => state.auth.isAuthorized;

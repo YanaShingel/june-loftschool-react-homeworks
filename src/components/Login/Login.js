@@ -1,29 +1,28 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { autorize, logout, getIsAutorized } from '../../ducks/auth';
+import { authorize, logout, getIsAuthorized } from '../../ducks/auth';
 
-class Login extends PureComponent {
+class Login extends Component {
   state = {
     login: ''
   };
 
-  handleChange = event => {
-    this.setState({ login: event.target.value });
-  };
+  // handleChange = event => {
+  //   this.setState({ login: event.target.value });
+  // };
 
   handleKeyPress = event => {
-    const { autorize } = this.props;
+    const { authorize } = this.props;
     if (event.key === 'Enter') {
-      autorize(this.state.loginInput);
+      authorize(event.target.value);
     }
   };
 
   render() {
     const { isAuthorized } = this.props;
-    debugger
     if (isAuthorized) {
-      return <Redirect to='/users/me'/>
+      return <Redirect to="/users/me" />;
     }
     return (
       <div className="login-wrapper">
@@ -39,7 +38,7 @@ class Login extends PureComponent {
             placeholder="auth_token"
             onKeyPress={this.handleKeyPress}
             value={this.state.loginInput}
-            onChange={this.handleChange}
+            // onChange={this.handleChange}
           />
         </div>
       </div>
@@ -48,12 +47,15 @@ class Login extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isAuthorized: getIsAutorized(state)
-})
+  isAuthorized: getIsAuthorized(state)
+});
 
 const mapDispatchToProps = {
-  autorize,
+  authorize,
   logout
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
