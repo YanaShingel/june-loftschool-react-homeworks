@@ -17,14 +17,18 @@ const isFetching = handleActions(
 
 const data = handleActions(
   {
-    [fetchUserSuccess.toString()]: (_state, action) => action.payload
+    [fetchUserSuccess.toString()]: (_state, action) => {
+      return action.payload;
+    }
   },
   []
 );
 
 const error = handleActions(
   {
-    [fetchUserFailure.toString()]: (_state, action) => action.payload
+    [fetchUserFailure.toString()]: (_state, action) => {
+      return action.payload;
+    }
   },
   null
 );

@@ -8,21 +8,21 @@ import { getIsAuthorized, logout } from '../../ducks/auth';
 import { getNetworkErrorMessage, getIsError } from '../../ducks/network';
 
 class AppRouter extends PureComponent {
-  handleClick = () => {
-    this.props.logout();
-  };
+  // handleClick = () => {
+  //   this.props.logout();
+  // };
+  componentDidMount() {
+    // clearTokenApi();
+  }
 
   render() {
     const { isAuthorized, isError, errorNetworkMessage } = this.props;
-    // let qwe = localStorage.removeItem('access_token');
-    let qwe = localStorage.getItem('access_token');
-    // debugger;
+
     return (
       <main>
         {isError ? (
           <p className="error-message">{errorNetworkMessage}</p>
         ) : null}
-        {isAuthorized ? <button onClick={this.handleClick} /> : null}
         <Switch>
           <Route path="/login" component={Login} />
           <PrivateRoute path="/users/me" component={UserPage} />

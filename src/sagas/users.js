@@ -1,17 +1,18 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { getTokenOwner, getUserInformation } from 'api';
+import { getTokenOwner } from 'api';
 import {
   fetchUserRequest,
-  fetchUserSuccess,
-  fetchUserFailure
+  fetchUserSuccess
+  // fetchUserFailure
 } from 'ducks/users';
+import { networkError } from 'ducks/network';
 
 function* fetchUserFlow(action) {
   try {
     const response = yield call(getTokenOwner);
     yield put(fetchUserSuccess(response));
   } catch (error) {
-    yield put(fetchUserFailure(error));
+    yield put(networkError(error));
   }
 }
 

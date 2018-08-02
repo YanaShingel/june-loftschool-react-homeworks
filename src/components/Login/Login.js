@@ -21,6 +21,8 @@ class Login extends Component {
 
   render() {
     const { isAuthorized } = this.props;
+    let qwe = this.state;
+    debugger;
     if (isAuthorized) {
       return <Redirect to="/users/me" />;
     }

@@ -8,9 +8,10 @@ import {
 
 const data = handleActions(
   {
+    [fetchFollowersRequest.toString()]: () => [],
     [fetchFollowersSuccess.toString()]: (_state, action) => action.payload
   },
-  null
+  []
 );
 
 const error = handleActions(
@@ -22,9 +23,9 @@ const error = handleActions(
 
 const isFetching = handleActions(
   {
-    [fetchFollowersRequest.toString()]: () => false,
-    [fetchFollowersSuccess.toString()]: () => true,
-    [fetchFollowersFailure.toString()]: () => true
+    [fetchFollowersRequest.toString()]: () => true,
+    [fetchFollowersSuccess.toString()]: () => false,
+    [fetchFollowersFailure.toString()]: () => false
   },
   false
 );

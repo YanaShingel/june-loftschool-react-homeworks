@@ -9,9 +9,10 @@ import {
 
 export function* authFlow() {
   while (true) {
-    const isAuthorized = yield select(getIsAuthorized);
     debugger;
+    const isAuthorized = yield select(getIsAuthorized);
     const localStorageToken = yield call(getTokenFromLocalStorage);
+    clearTokenApi();
 
     let token;
 
@@ -20,7 +21,6 @@ export function* authFlow() {
       yield put(authorize());
     } else {
       const action = yield take(authorize);
-      debugger;
       token = action.payload;
     }
 
