@@ -32,7 +32,7 @@ class AppRouter extends PureComponent {
           <Route path="/login" component={Login} />
           <PrivateRoute path="/users/me" component={UserPage} />
           <PrivateRoute path="/users/:name" component={UserPage} />
-          <Redirect to="/login" />
+          <Redirect to="/users/me" />
         </Switch>
       </main>
     );
