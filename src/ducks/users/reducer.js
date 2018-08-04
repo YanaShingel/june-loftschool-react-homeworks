@@ -1,13 +1,18 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 import {
+  fetchTokenOwnerRequest,
   fetchUserRequest,
   fetchUserSuccess,
   fetchUserFailure
 } from './actions';
+import { logout } from '../auth';
 
 const isFetching = handleActions(
   {
+    [fetchTokenOwnerRequest.toString()]: () => {
+      return true;
+    },
     [fetchUserRequest.toString()]: () => true,
     [fetchUserSuccess.toString()]: () => false,
     [fetchUserFailure.toString()]: () => false
@@ -15,17 +20,21 @@ const isFetching = handleActions(
   false
 );
 
-const data = handleActions(
+const userData = handleActions(
   {
+    [logout.toString()]: () => null,
+    [fetchUserRequest.toString()]: () => null,
     [fetchUserSuccess.toString()]: (_state, action) => {
-      return action.payload;
+      return action.payload.data;
     }
   },
-  []
+  null
 );
 
 const error = handleActions(
   {
+    [fetchUserRequest.toString()]: () => null,
+    [fetchUserSuccess.toString()]: () => null,
     [fetchUserFailure.toString()]: (_state, action) => {
       return action.payload;
     }
@@ -33,4 +42,4 @@ const error = handleActions(
   null
 );
 
-export default combineReducers({ isFetching, data, error });
+export default combineReducers({ isFetching, userData, error });

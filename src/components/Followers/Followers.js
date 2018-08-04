@@ -15,7 +15,6 @@ class Followers extends PureComponent {
 
   render() {
     const { isFetching, ids } = this.props;
-    debugger;
     if (isFetching) {
       return <Spinner size="64px" color="fuchsia" gap={5} />;
     }
@@ -24,14 +23,14 @@ class Followers extends PureComponent {
     }
     return (
       <ul>
-        {ids.map((el, i) => (
-          <li key={el.id}>
+        {ids.map((follower, i) => (
+          <li key={follower.id}>
             <img
               className="follower-avatar"
-              src={el.avatar_url}
-              alt={el.login}
+              src={follower.avatar_url}
+              alt={follower.login}
             />
-            <Link to={`/users/${el.login}`}>{el.login}</Link>
+            <Link to={`/users/${follower.login}`}>{follower.login}</Link>
           </li>
         ))}
       </ul>

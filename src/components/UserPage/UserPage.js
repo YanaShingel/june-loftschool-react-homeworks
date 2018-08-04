@@ -1,32 +1,68 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchUserRequest, getIsFetching, getUserData } from 'ducks/users';
+import {
+  fetchTokenOwnerRequest,
+  fetchUserRequest,
+  getIsFetching,
+  getUserData
+} from 'ducks/users';
 import Followers from '../Followers';
+import Spinner from 'react-svg-spinner';
 // import Followers from '../Followers';
 
 class UserPage extends PureComponent {
   componentDidMount() {
-    this.props.fetchUserRequest();
+    const {
+      fetchTokenOwnerRequest,
+      fetchUserRequest,
+      match: {
+        params: { name }
+      },
+      userData
+    } = this.props;
+
+    if (!name) fetchTokenOwnerRequest();
+    if (name && !userData) fetchUserRequest();
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      fetchTokenOwnerRequest,
+      fetchUserRequest,
+      match: {
+        params: { name }
+      }
+    } = this.props;
+
+    if (name !== prevProps.match.params.name) {
+      if (!name) {
+        fetchTokenOwnerRequest();
+      } else {
+        fetchUserRequest(name);
+      }
+    }
   }
 
   render() {
-    let avatar_url, login, followers, public_repos;
+    const { isFetching, userData } = this.props;
 
-    if (this.props.user.data) {
-      // {avatar_url, login, followers, repos_url} = this.props.user.data;
-      avatar_url = this.props.user.data.avatar_url;
-      login = this.props.user.data.login;
-      followers = this.props.user.data.followers;
-      public_repos = this.props.user.data.public_repos;
+    if (isFetching) {
+      return (
+        <Spinner className="spinner" size="64px" color="fuchsia" gap={5} />
+      );
     }
-    debugger;
+
+    if (!isFetching && !userData) {
+      return (
+        <div className="user__notfound">Такой пользователь отсутствует</div>
+      );
+    }
+
+    const { avatar_url, login, followers, public_repos } = userData;
 
     return (
       <div className="user-page">
-        <div className="user-logout">
-          <button>Logout</button>
-        </div>
         <div className="user-wrapper">
           <div className="user-info">
             <div className="user-avatar">
@@ -46,17 +82,16 @@ class UserPage extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isFetched: getIsFetching(state),
-  user: getUserData(state)
+  isFetching: getIsFetching(state),
+  userData: getUserData(state)
 });
 
 const mapDispatchToProps = {
-  fetchUserRequest
+  fetchUserRequest,
+  fetchTokenOwnerRequest
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(UserPage)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserPage);

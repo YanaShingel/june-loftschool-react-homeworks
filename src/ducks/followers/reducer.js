@@ -5,9 +5,11 @@ import {
   fetchFollowersSuccess,
   fetchFollowersFailure
 } from './actions';
+import { logout } from '../auth';
 
 const data = handleActions(
   {
+    [logout.toString()]: () => [],
     [fetchFollowersRequest.toString()]: () => [],
     [fetchFollowersSuccess.toString()]: (_state, action) => action.payload
   },

@@ -5,24 +5,23 @@ import { authorize, logout, getIsAuthorized } from '../../ducks/auth';
 
 class Login extends Component {
   state = {
-    login: ''
+    token: ''
   };
 
-  // handleChange = event => {
-  //   this.setState({ login: event.target.value });
-  // };
+  handleChange = event => {
+    this.setState({ token: event.target.value });
+  };
 
   handleKeyPress = event => {
     const { authorize } = this.props;
     if (event.key === 'Enter') {
-      authorize(event.target.value);
+      authorize(this.state.token);
     }
   };
 
   render() {
+    const { token } = this.state;
     const { isAuthorized } = this.props;
-    let qwe = this.state;
-    debugger;
     if (isAuthorized) {
       return <Redirect to="/users/me" />;
     }
@@ -39,8 +38,8 @@ class Login extends Component {
             className="input-login"
             placeholder="auth_token"
             onKeyPress={this.handleKeyPress}
-            value={this.state.loginInput}
-            // onChange={this.handleChange}
+            onChange={this.handleChange}
+            value={token}
           />
         </div>
       </div>
