@@ -9,10 +9,7 @@ import {
 } from 'ducks/users';
 import Followers from '../Followers';
 import Spinner from 'react-svg-spinner';
-
-// const UserWrapper = styled.div`
-//   display: flex;
-// `;
+import './User.css';
 
 class UserPage extends PureComponent {
   componentDidMount() {

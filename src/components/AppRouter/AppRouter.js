@@ -26,6 +26,10 @@ const ButtonLogout = styled.button`
   }
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+`;
+
 class AppRouter extends PureComponent {
   handleLogout = () => {
     this.props.logout();
@@ -42,7 +46,9 @@ class AppRouter extends PureComponent {
     return (
       <AppWrapper className="app">
         {isError ? (
-          <p className="error-message">{errorNetworkMessage}</p>
+          <ErrorMessage className="error-message">
+            {errorNetworkMessage}
+          </ErrorMessage>
         ) : null}
         {isAuthorized &&
           !isFetching && (

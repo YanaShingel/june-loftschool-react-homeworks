@@ -13,7 +13,6 @@ const error = handleActions(
 const message = handleActions(
   {
     [networkError.toString()]: (_state, action) => {
-      debugger;
       return action.payload.response.data.message;
     },
 
