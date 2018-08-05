@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { authorize, logout, getIsAuthorized } from '../../ducks/auth';
+import styled from 'styled-components';
+
+const LogginWrapper = styled.div`
+  width: 300px;
+  font-size: 16px;
+`;
+
+const InputWrapper = styled.input`
+  width: 300px;
+  border: 0.05rem solid grey;
+`;
+
+const LoginHint = styled.div`
+  width: 300px;
+  margin-top: 1rem;
+`;
 
 class Login extends Component {
   state = {
@@ -27,21 +43,22 @@ class Login extends Component {
     }
     return (
       <div className="login-wrapper">
-        <div className="login">
+        <LogginWrapper>
           <p>
-            Получить токен нужно на своей странице github, перейдите по
+            Получить токен нужно на своей странице github, перейдите по{' '}
             <a href="https://github.com/settings/tokens">адресу</a> и создайте
             себе токен. Запишите куда-нибудь токен, так как после создай доступ
             к нему будет только один раз.
           </p>
-          <input
+          <InputWrapper
             className="input-login"
             placeholder="auth_token"
             onKeyPress={this.handleKeyPress}
             onChange={this.handleChange}
             value={token}
           />
-        </div>
+          <LoginHint>После ввода нажать Enter.</LoginHint>
+        </LogginWrapper>
       </div>
     );
   }

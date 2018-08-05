@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+// import styled from 'styled-components';
 import {
   fetchTokenOwnerRequest,
   fetchUserRequest,
@@ -8,7 +9,10 @@ import {
 } from 'ducks/users';
 import Followers from '../Followers';
 import Spinner from 'react-svg-spinner';
-// import Followers from '../Followers';
+
+// const UserWrapper = styled.div`
+//   display: flex;
+// `;
 
 class UserPage extends PureComponent {
   componentDidMount() {
@@ -61,7 +65,7 @@ class UserPage extends PureComponent {
     const { avatar_url, login, followers, public_repos } = userData;
 
     return (
-      <div className="user-page">
+      <div>
         <div className="user-wrapper">
           <div className="user-info">
             <div className="user-avatar">
